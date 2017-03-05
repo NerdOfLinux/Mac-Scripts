@@ -23,9 +23,17 @@ pkgutil --expand "${pkgname}" temp.tmp
 #Go into folder
 cd temp.tmp
 #File the app file
-payload=$(find . -iname "Payload" | grep "App")
-#Decompress app
-tar -xzf "${payload}" -C ~/Applications
+payload=$(find . -name "Payload" | grep "App")
+#If payload is a file
+if [ -f "${payload}" ]
+then
+    #Decompress app
+    tar -xzf "${payload}" -C ~/Applications
+elif [ -d "${payload}" ]
+then
+    mkdir ~/Applications/"$out"
+    cp -R "${payload}" ~/Applications/"$out".app
+fi
 cd ..
 rm -rf temp.tmp
 echo "$out.app is now in your applications folder"
