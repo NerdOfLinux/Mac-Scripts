@@ -23,7 +23,7 @@ pkgutil --expand "${pkgname}" temp.tmp
 #Go into folder
 cd temp.tmp
 #File the app file
-payload=$(find . -name "Payload" | grep "App")
+payload=$(find . -name "Payload" -size +1000000c)
 #If payload is a file
 if [ -f "${payload}" ]
 then
